@@ -61,6 +61,8 @@ fn part1(input: &String) {
                         x_start: x - n.trim().len() + 1,
                         x_end: x,
                     });
+
+                    n = String::new();
                 }
             } else {
                 if char != '.' {
@@ -107,6 +109,7 @@ fn part2(input: &String) {
                         x_start: x - n.trim().len() + 1,
                         x_end: x,
                     });
+                    n = String::new();
                 }
             } else {
                 if char == '*' {
