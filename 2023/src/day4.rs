@@ -22,7 +22,7 @@ impl Card {
 impl FromStr for Card {
     type Err = ();
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let first_split = s.split(":").nth(0).unwrap();
+        // let first_split = s.split(":").nth(0).unwrap();
         // let number = first_split.split(" ").nth(1).unwrap().parse().unwrap();
 
         let second_split = s.split(":").nth(1).unwrap();
@@ -76,6 +76,34 @@ fn part1() {
     println!("Part 1 Answer {answer}")
 }
 
+fn part2() {
+    let input = fs::read_to_string("./data/4.txt").unwrap();
+    let cards = input
+        .lines()
+        .map(|line| line.parse::<Card>().unwrap())
+        .collect::<Vec<Card>>();
+
+    let binding = cards
+        .iter()
+        .map(|card| {
+            card.check_winning_numbers()
+        })
+        .collect::<Vec<u32>>();
+    
+    let mut count = 0;
+
+    for i in 0..binding.len(){
+        count += i;
+        let wins = binding[i] as i32;
+        for _j in 0..(wins + 1) {
+            count += 1
+        }
+    }
+
+    println!("Part 2 Answer {:?}", count);
+}
+
 fn main() {
     part1();
+    part2();
 }
