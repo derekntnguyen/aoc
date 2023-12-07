@@ -85,22 +85,17 @@ fn part2() {
 
     let binding = cards
         .iter()
-        .map(|card| {
-            card.check_winning_numbers()
-        })
+        .map(|card| card.check_winning_numbers())
         .collect::<Vec<u32>>();
-    
-    let mut count = 0;
 
-    for i in 0..binding.len(){
-        count += i;
-        let wins = binding[i] as i32;
-        for _j in 0..(wins + 1) {
-            count += 1
+    let mut count = vec![1; binding.len()];
+    for i in 0..binding.len() {
+        for j in 0..binding[i] {
+            count[i as usize + j as usize + 1] += count[i];
         }
     }
 
-    println!("Part 2 Answer {:?}", count);
+    println!("Part 2 Answer {:?}", count.iter().sum::<usize>());
 }
 
 fn main() {
